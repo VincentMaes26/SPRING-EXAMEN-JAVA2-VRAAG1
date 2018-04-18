@@ -69,8 +69,9 @@ public class UI implements InitializingBean {
 		return this.outputLabel;
 	}
 	
-	public void setAnswer(String answer) {
+	public String setAnswer(String answer) {
 		this.outputLabel.setText(answer);
+		return answer;
 	}
 	
 	public JButton getButton() {
