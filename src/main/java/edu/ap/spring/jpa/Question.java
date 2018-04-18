@@ -26,5 +26,15 @@ public class Question {
 		this.answer = answer;
 	}
 	
+	public Answer getAnswer() {
+		return this.answer;
+	}
 	
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
+	
+	public Long getId() {
+		return id;
+	}
 }
