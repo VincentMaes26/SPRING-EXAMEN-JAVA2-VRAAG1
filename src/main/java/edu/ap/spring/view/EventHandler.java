@@ -1,20 +1,19 @@
 package edu.ap.spring.view;
 
 import java.awt.event.ActionEvent;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import edu.ap.spring.jpa.Answer;
 import edu.ap.spring.jpa.Question;
 import edu.ap.spring.jpa.QuestionRepository;
+import edu.ap.spring.model.EightBall;
 
 @Service
 public class EventHandler {
 	private UI ui;
+	
 	private QuestionRepository questionRepo;
-	private Iterable<Answer> answerRepo;
+	private EightBall eightBall;
 	
 	@Autowired
 	public void setQuestionRepo(QuestionRepository qRepo) {
@@ -22,14 +21,8 @@ public class EventHandler {
 	}
 	
 	@Autowired
-	public void setAnswerRepo(List<Answer> aRepo) {
-		aRepo.add(new Answer("Yes definitely"));
-		aRepo.add(new Answer("I think so"));
-		aRepo.add(new Answer("Ask again later"));
-		aRepo.add(new Answer("I'm not sure"));
-		aRepo.add(new Answer("I'd have to say no"));
-		aRepo.add(new Answer("Most certainly not"));
-		this.answerRepo = aRepo;
+	public void setEightBall(EightBall eightBall) {
+		this.eightBall = eightBall;
 	}
 	
 	@Autowired
@@ -39,16 +32,13 @@ public class EventHandler {
 	
 	public void whenButtonClicked(ActionEvent actionEvent) {
 		String questionText = ui.getQuestion().getText();
-		Question q1 = new Question(questionText, new Answer(""));
+		Question q1 = new Question(questionText, "");
+		if(!questionRepo.exists(q1.getId()){
+			String answer = ui.setAnswer(eightBall.getRandomAnswer(q1.getQuestion()));
+			q1.setAnswer(answer);
+			questionRepo.save(q1);
+		};
 		
-		for(Answer a : answerRepo) {
-			if(a.getId() == q1.getId()) {
-				q1.setAnswer(a);
-				String answer = a.getAnswerText();
-				ui.setAnswer(answer);
-			}
-		}
-		questionRepo.save(q1);
 	}
 		
 		

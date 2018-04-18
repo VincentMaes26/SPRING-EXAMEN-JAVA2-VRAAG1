@@ -1,6 +1,6 @@
 package edu.ap.spring.jpa;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,24 +13,27 @@ public class Question {
 	@GeneratedValue
 	private Long id;
 	
-	private String questionText;
+	private String question;
 	
-	@OneToOne(mappedBy = "question", cascade = CascadeType.ALL)
-	private Answer answer;
+	private String answer;
 	
 	public Question() {}
 	
-	public Question(String questionText, Answer answer) {
+	public Question(String questionText, String answer) {
 		super();
-		this.questionText = questionText;
+		this.question = questionText;
 		this.answer = answer;
 	}
 	
-	public Answer getAnswer() {
+	public String getQuestion() {
+		return this.question;
+	}
+	
+	public String getAnswer() {
 		return this.answer;
 	}
 	
-	public void setAnswer(Answer answer) {
+	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
 	

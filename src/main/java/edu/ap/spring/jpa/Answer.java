@@ -32,6 +32,13 @@ public class Answer {
 		return id;
 	}
 
+	public boolean contains(String string) {
+		if(this.answerText == string) {
+			return true;
+		}
+		else{return false;}
+	}
+
 	
 	
 

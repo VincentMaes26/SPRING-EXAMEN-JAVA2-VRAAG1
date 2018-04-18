@@ -3,6 +3,7 @@ package edu.ap.spring.view;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +15,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import edu.ap.spring.jpa.Answer;
+import edu.ap.spring.jpa.QuestionRepository;
+import edu.ap.spring.model.EightBall;
+
 @Component
 public class UI implements InitializingBean {
 	
@@ -21,15 +26,20 @@ public class UI implements InitializingBean {
 	@Autowired
 	EventHandler eventHandler;
 	
+	private EightBall eightBall;
 	private JFrame jFrame;
 	private JLabel label1, outputLabel;
 	private JTextField question;
 	private JPanel controlPanel;
 	private JButton btnAnswerQuestion;
 	
+	
+	
 	public UI() {}
 	
 	public void setUp() {
+		
+				
 		jFrame = new JFrame("EightBall");
 		jFrame.setLayout(new FlowLayout());
 		controlPanel = new JPanel();
@@ -45,9 +55,9 @@ public class UI implements InitializingBean {
 		btnAnswerQuestion.addActionListener(eventHandler::whenButtonClicked);
 		
 		controlPanel.add(label1);
-		controlPanel.add(outputLabel);
 		controlPanel.add(question);
 		controlPanel.add(btnAnswerQuestion);
+		controlPanel.add(outputLabel);
 		
 		jFrame.add(controlPanel);
 		jFrame.setSize(600, 400);
@@ -56,6 +66,7 @@ public class UI implements InitializingBean {
 		jFrame.pack();
 		jFrame.setVisible(true);	
 	}
+	
 	
 	public JFrame getjFrame() {
         return this.jFrame;
