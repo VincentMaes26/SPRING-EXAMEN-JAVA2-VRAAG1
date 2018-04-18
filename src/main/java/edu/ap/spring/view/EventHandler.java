@@ -33,7 +33,7 @@ public class EventHandler {
 	public void whenButtonClicked(ActionEvent actionEvent) {
 		String questionText = ui.getQuestion().getText();
 		Question q1 = new Question(questionText, "");
-		if(!questionRepo.exists(q1.getId()){
+		if(questionRepo.findByQuestion(q1.getQuestion()) == null) {
 			String answer = ui.setAnswer(eightBall.getRandomAnswer(q1.getQuestion()));
 			q1.setAnswer(answer);
 			questionRepo.save(q1);
